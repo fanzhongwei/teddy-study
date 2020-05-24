@@ -1,4 +1,4 @@
-package com.teddy.thread.basic;
+package com.teddy.thread.juc.atomic;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

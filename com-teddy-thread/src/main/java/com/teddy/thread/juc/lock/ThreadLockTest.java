@@ -1,4 +1,4 @@
-package com.teddy.thread.lock;
+package com.teddy.thread.juc.lock;
 
 import org.junit.Test;
 

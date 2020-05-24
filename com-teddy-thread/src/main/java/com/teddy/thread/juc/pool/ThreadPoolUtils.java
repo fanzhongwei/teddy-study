@@ -1,4 +1,4 @@
-package com.teddy.thread.pool;
+package com.teddy.thread.juc.pool;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 

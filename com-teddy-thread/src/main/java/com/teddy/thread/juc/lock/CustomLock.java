@@ -1,9 +1,9 @@
-package com.teddy.thread.lock;
+package com.teddy.thread.juc.lock;
 
 import org.junit.Test;
 
 /**
- * package com.teddy.thread.lock
+ * package com.teddy.thread.juc.lock
  * description: 简单锁实现
  * Copyright 2019 Teddy, Inc. All rights reserved.
  *

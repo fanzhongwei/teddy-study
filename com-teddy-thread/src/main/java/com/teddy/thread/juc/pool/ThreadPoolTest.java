@@ -1,8 +1,7 @@
-package com.teddy.thread.basic;
+package com.teddy.thread.juc.pool;
 
 import java.util.concurrent.*;
 
-import com.teddy.thread.pool.ThreadPoolUtils;
 import org.junit.Test;
 
 /**

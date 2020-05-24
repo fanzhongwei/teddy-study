@@ -1,4 +1,4 @@
-package com.teddy.thread.basic;
+package com.teddy.thread.safe;
 
 import org.junit.Test;
 
