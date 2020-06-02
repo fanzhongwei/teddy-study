@@ -28,10 +28,10 @@ public class ThreadLockTest {
             lock.lock();
             if ("b".equals(username)) {
                 instanceNum = 200;
-                System.out.println("b set over!");
+                System.out.println("b set num is 200!");
             } else {
                 instanceNum = 100;
-                System.out.println("a set over!");
+                System.out.println("a set num is 100!");
                 Thread.sleep(2000);
             }
             System.out.println(username + " num = " + instanceNum);
