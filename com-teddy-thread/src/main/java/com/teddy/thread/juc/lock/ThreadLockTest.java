@@ -24,8 +24,8 @@ public class ThreadLockTest {
     private int instanceNum;
 
     private void addInstanceNum(String username) {
+        lock.lock();
         try {
-            lock.lock();
             if ("b".equals(username)) {
                 instanceNum = 200;
                 System.out.println("b set num is 200!");
@@ -55,17 +55,23 @@ public class ThreadLockTest {
         Lock lock = new ReentrantLock();
         void testMethod(){
             lock.lock();
-            for (int i = 0; i < 5; i++) {
-                System.out.println("ThreadName = " + Thread.currentThread().getName() + " " + (i + 1));
+            try {
+                for (int i = 0; i < 5; i++) {
+                    System.out.println("ThreadName = " + Thread.currentThread().getName() + " " + (i + 1));
+                }
+                testMethodB();
+            } finally {
+                lock.unlock();
             }
-            testMethodB();
-            lock.unlock();
         }
 
         void testMethodB(){
-            lock.lock();
-            System.out.println("ThreadName = " + Thread.currentThread().getName() + " 获取到了lock，进入testMethodB.");
-            lock.unlock();
+            try {
+                lock.lock();
+                System.out.println("ThreadName = " + Thread.currentThread().getName() + " 获取到了lock，进入testMethodB.");
+            } finally {
+                lock.unlock();
+            }
         }
     }
 
@@ -117,14 +123,17 @@ public class ThreadLockTest {
     }
 
     private void throwExceptionNotReleaseLock(Lock lock){
-        lock.lock();
-        for (int i = 0; i < 10; i++) {
-            if(i == 5 && "a".equals(Thread.currentThread().getName())){
-                throw new RuntimeException("threadName = " + Thread.currentThread().getName() + "抛个异常，死锁啦...");
+        try {
+            lock.lock();
+            for (int i = 0; i < 10; i++) {
+                if(i == 5 && "a".equals(Thread.currentThread().getName())){
+                    throw new RuntimeException("threadName = " + Thread.currentThread().getName() + "抛个异常，死锁啦...");
+                }
+                System.out.println("threadName = " + Thread.currentThread().getName() + " i = " + i);
             }
-            System.out.println("threadName = " + Thread.currentThread().getName() + " i = " + i);
+        } finally {
+            lock.unlock();
         }
-        lock.unlock();
     }
 
     @Test
@@ -147,9 +156,9 @@ public class ThreadLockTest {
     }
 
     private void lockIsFair(Lock lock){
+        System.out.println("ThreadName = " + Thread.currentThread().getName() + " 请求了锁...");
+        lock.lock();
         try {
-            System.out.println("ThreadName = " + Thread.currentThread().getName() + " 请求了锁...");
-            lock.lock();
             System.out.println("ThreadName = " + Thread.currentThread().getName() + " 获得了锁...");
             Thread.sleep(100);
         } catch (InterruptedException e) {
@@ -198,9 +207,9 @@ public class ThreadLockTest {
     static class ReadWriteReentrantLockTest{
         ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
         void read(){
+            System.out.println("ThreadName = " + Thread.currentThread().getName() + " 请求读锁 time = " + System.currentTimeMillis());
+            lock.readLock().lock();
             try {
-                System.out.println("ThreadName = " + Thread.currentThread().getName() + " 请求读锁 time = " + System.currentTimeMillis());
-                lock.readLock().lock();
                 System.out.println("ThreadName = " + Thread.currentThread().getName() + " 获取读锁 time = " + System.currentTimeMillis());
                 Thread.sleep(5000);
                 System.out.println("ThreadName = " + Thread.currentThread().getName() + " 读取完成 time = " + System.currentTimeMillis());
@@ -212,9 +221,9 @@ public class ThreadLockTest {
         }
 
         void write(){
+            System.out.println("ThreadName = " + Thread.currentThread().getName() + " 请求写锁 time = " + System.currentTimeMillis());
+            lock.writeLock().lock();
             try {
-                System.out.println("ThreadName = " + Thread.currentThread().getName() + " 请求写锁 time = " + System.currentTimeMillis());
-                lock.writeLock().lock();
                 System.out.println("ThreadName = " + Thread.currentThread().getName() + " 获取写锁 time = " + System.currentTimeMillis());
                 Thread.sleep(5000);
                 System.out.println("ThreadName = " + Thread.currentThread().getName() + " 写入完成 time = " + System.currentTimeMillis());
