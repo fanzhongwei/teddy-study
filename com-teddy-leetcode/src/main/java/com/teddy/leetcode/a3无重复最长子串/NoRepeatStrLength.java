@@ -3,6 +3,12 @@ package com.teddy.leetcode.a3无重复最长子串;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * <a href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/">无重复最长子串</a>
+ *
+ * @author fanzhongwei
+ * @date 2023/3/27 下午12:48
+ **/
 public class NoRepeatStrLength {
 
     public int lengthOfLongestSubstring(String s) {
