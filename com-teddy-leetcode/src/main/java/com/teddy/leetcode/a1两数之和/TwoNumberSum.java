@@ -3,7 +3,7 @@ package com.teddy.leetcode.a1两数之和;
 import java.util.*;
 
 /**
- * 两数之和
+ * <a href="https://leetcode.cn/problems/two-sum/">两数之和</a>
  *
  * @author fanzhongwei
  * @date 2023/03/07 19:38
