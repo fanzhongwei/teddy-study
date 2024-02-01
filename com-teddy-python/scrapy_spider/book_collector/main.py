@@ -1,6 +1,11 @@
 from scrapy.cmdline import execute
 import os
 import sys
+import platform
+
+if platform.system() == "Windows":
+    import asyncio
+    asyncio.set_envent_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 if __name__ == '__main__':
     # 获取当前脚本路径
