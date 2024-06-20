@@ -19,4 +19,4 @@ if __name__ == '__main__':
     #切换工作目录
     os.chdir(dirpath)
 
-    execute(['scrapy','crawl','zhetian'])
+    execute(['scrapy','crawl','qingyunian'])
